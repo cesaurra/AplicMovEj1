@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8" />
+	<title>Ejercicio 2</title>
+
+	<script src="scripts/vue.js"></script>
+	<link rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body>
+	<div class="contenedor">
+		<h1>Juegos Retro</h1>
+
+		<p>Nuestra lista es exigente con las calificaciones, solo te mostraremos juegos que tengan una calificacion mayor a 6 y resaltaremos las super recomendadas que tengan calificación de 8 en adelante.</p>
+
+		<ul>
+
+			<!-- CONSIGNA; Nuestra representación en el html debe hacerse sobre una lista desordenada. 
+				En cuyo caso, tendremos una iteración sobre un list-item que deberá mostrarle al usuario la propiedad nombre y anio de cada juego, 
+				pero solo debe mostrar por medio de la directiva v-if aquellos que tengan una calificación mayor a 6.--> 
+					<!-- v-for para imprimir todos los elementos del array juegos que tengan calificación > 6 -->
+			<li v-for="item in juegos" v-if="item.calificacion > 6">
+				 
+				<!-- ITERACCIÓN -->
+				<!--Tanto el nombre como el año se mostrarán dentro de un h2 escrito en el html dentro del mismo list-item.--> 
+					<!--v-once permite que si una de las variables cambian de valor o contenido, se autoactualizarán en todas las plantillas que hagan referencia a ella--> 
+				<h2 v-once>{{item.nombre}} : {{item.anio}} </h2>
+				
+				<!--deberá tener el html una etiqueta <img /> que deberá mostrar gracias a la iteración cada una de las portadas, para esto usaremos la directiva v-bind y afectaremos al atributo src y alt.--> 
+					<!--v-bind para enlazar una variable de Vue con un atributo específico de una etiqueta HTML--> 
+				<img v-bind:src="item.portada" v-bind:alt="item.alt">
+
+				<!-- Para mostrar cada una de las consolas anidamos otro v-for sobre la etiqueta <p> e iteraremos el array para que nos muestre cada una de ellas.--> 
+					<!-- v-for para imprimir todos los elementos del array consola[] --> 
+				<p v-for="cons in item.consola">{{cons}} </p>
+				
+				<!--Por último, un segundo párrafo el cual nos mostrará la calificación del juego. -->  
+				<!--Por medio de v-bind afectaremos a su atributo class y generaremos un operador ternario en base a su calificación, si esta es >= 8 le daremos la clase “green”, caso contrario se aplicará la clase “red” (ambas clases ya desarrolladas en la hoja de estilos.)-->  
+					<!--clase red con line-through (tachado) para calificación menor a 8 --> 
+					<!--v-bind para enlazar una variable de Vue con un atributo específico de una etiqueta HTML--> 
+				<p v-bind:class ="item.calificacion >=8?'green':'red'">CALIFICACION {{item.calificacion}} </p>
+			</li>
+		</ul>
+	</div>
+
+	<script src="scripts/app.js"></script>
+</body>
+</html>
